@@ -11,6 +11,7 @@
 #include <matplotlibcpp17/common.h>
 #include <matplotlibcpp17/container.h>
 #include <matplotlibcpp17/legend.h>
+#include <matplotlibcpp17/lines.h>
 #include <matplotlibcpp17/quiver.h>
 #include <matplotlibcpp17/text.h>
 
@@ -29,6 +30,7 @@ using HistType = std::tuple<std::vector<double>, std::vector<double>,
  **/
 struct DECL_STRUCT_ATTR Axes : public BaseWrapper {
 public:
+  Axes() {}
   Axes(const pybind11::object &axes) {
     self = axes;
     load_attrs();
@@ -54,7 +56,7 @@ public:
   ObjectWrapper axhline(const pybind11::tuple &args = pybind11::tuple(),
                         const pybind11::dict &kwargs = pybind11::dict());
   // axvline
-  ObjectWrapper axvline(const pybind11::tuple &args = pybind11::tuple(),
+  lines::Line2D axvline(const pybind11::tuple &args = pybind11::tuple(),
                         const pybind11::dict &kwargs = pybind11::dict());
 
   // bar
@@ -387,10 +389,10 @@ inline ObjectWrapper Axes::axhline(const pybind11::tuple &args,
 }
 
 // axvline
-inline ObjectWrapper Axes::axvline(const pybind11::tuple &args,
+inline lines::Line2D Axes::axvline(const pybind11::tuple &args,
                                    const pybind11::dict &kwargs) {
   pybind11::object ret = axvline_attr(*args, **kwargs);
-  return ObjectWrapper(std::move(ret));
+  return lines::Line2D(std::move(ret));
 }
 
 // bar
